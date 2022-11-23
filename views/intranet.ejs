@@ -1,0 +1,6 @@
+<h1>Bienvenido a la intranet</h1>
+<% if (user && user.username) { %>
+    <h2>Usuario <%= user.username %></h2>
+<% } %>
+
+<a href="/logout">Cerrar sesión</a>
