@@ -27,6 +27,7 @@
     "npm": "^9.1.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "util": "^0.12.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
