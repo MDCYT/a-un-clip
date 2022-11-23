@@ -2,61 +2,97 @@
 <%- include('partials/header') %>
 
 <%- include('partials/navbar') %>
-    
-    <main class="container">
-        <!-- Carousel -->
-        <div id="carousel" class="carousel slide" data-bs-ride="true">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+<main class="container">
+    <!-- Carousel -->
+    <div id="carousel" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
 
-            </div>
-            <div class="carousel-inner">
-                <a class="carousel-item active">
-                    <img src="/img/carousel/1.jpeg" class="d-block w-100" alt="Los mejores precios">
-                </a>
-                <a class="carousel-item">
-                    <img src="/img/carousel/2.jpeg" class="d-block w-100" alt="Escribe con confianza">
-                </a>
-                <a class="carousel-item">
-                    <img src="/img/carousel/3.jpeg" class="d-block w-100" alt="A un clip de lo mejor para el colegio">
-                </a>
-                <a class="carousel-item">
-                    <img src="/img/carousel/4.jpeg" class="d-block w-100" alt="Pinta a tu manera">
-                </a>
-                <a class="carousel-item">
-                    <img src="/img/carousel/5.jpeg" class="d-block w-100" alt="Lo mejor para tu oficina">
-                </a>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+        <div class="carousel-inner">
+            <a class="carousel-item active">
+                <img src="/img/carousel/1.jpeg" class="d-block w-100" alt="Los mejores precios">
+            </a>
+            <a class="carousel-item">
+                <img src="/img/carousel/2.jpeg" class="d-block w-100" alt="Escribe con confianza">
+            </a>
+            <a class="carousel-item">
+                <img src="/img/carousel/3.jpeg" class="d-block w-100" alt="A un clip de lo mejor para el colegio">
+            </a>
+            <a class="carousel-item">
+                <img src="/img/carousel/4.jpeg" class="d-block w-100" alt="Pinta a tu manera">
+            </a>
+            <a class="carousel-item">
+                <img src="/img/carousel/5.jpeg" class="d-block w-100" alt="Lo mejor para tu oficina">
+            </a>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
 
-        <!-- Cards with only images -->
-        <div class="row row-cols-1 row-cols-md-2 g-5 my-4">
-            <div class="col">
-                <div class="card">
-                    <img src="/img/cards/1.jpg" class="card-img-top d-block w-100" alt="...">
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="/img/cards/2.jpg" class="card-img-top d-block w-100" alt="...">
-                </div>
+    <!-- Cards with only images -->
+    <div class="row row-cols-1 row-cols-md-2 g-5 my-4">
+        <div class="col">
+            <div class="card">
+                <img src="/img/cards/1.jpg" class="card-img-top d-block w-100" alt="...">
             </div>
         </div>
-    </main>
+        <div class="col">
+            <div class="card">
+                <img src="/img/cards/2.jpg" class="card-img-top d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Make a slider for featured products -->
+    <div class="top-content">
+        <div class="container-fluid">
+            <!-- Make 3 cards for featured products -->
+            <div class="row">
+                <div class="col-md-4 h-100">
+                    <div class="card">
+                        <img src="/img/products/caja de colores.png" class="card-img-top d-block w-100" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Caja de Colores Faber Castell</h5>
+                            <p class="card-text">S/. 512.00</p>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 h-100">
+                    <div class="card">
+                        <img src="/img/products/acuarelas.png" class="card-img-top d-block w-100" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Acuarelas Marca Bic</h5>
+                            <p class="card-text">S/. 35.00</p>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 h-100">
+                    <div class="card">
+                        <img src="/img/products/lapiceros de colores.png" class="card-img-top d-block w-100" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lapiceros de Colores Alpino</h5>
+                            <p class="card-text">S/. 45.00</p>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
 </body>
 
 </html>
