@@ -1,25 +1,16 @@
 const mysql = require('mysql');
 
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     port: process.env.MYSQL_PORT,
+    database: process.env.MYSQL_DATABASE
 });
 
-connection.connect((err) => {
+connection.getConnection((err) => {
     if (err) throw err;
-    console.log('Connected to database');
-});
-
-connection.query('CREATE DATABASE IF NOT EXISTS ' + process.env.MYSQL_DATABASE, (err) => {
-    if (err) throw err;
-    console.log('Database created');
-});
-
-connection.query('USE ' + process.env.MYSQL_DATABASE, (err) => {
-    if (err) throw err;
-    console.log('Using database');
+    console.log('Connected to MySQL Server!');
 });
 
 //Create the databse users table if it doesn't exist
