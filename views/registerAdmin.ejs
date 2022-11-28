@@ -1,0 +1,57 @@
+<!-- Load Header -->
+<%- include('partials/header') %>
+
+    <%- include('partials/navbar') %>
+        <main class="container">
+            <section class="vh-100">
+                <div class="container py-5 h-100">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                                <div class="card-body p-5">
+
+                                    <h3 class="mb-5">Registro de Administrador</h3>
+                                    <% if (hasMessages) { %>
+                                        <section class="messages">
+                                            <% messages.forEach(function(message) { %>
+                                                <% if (message.type==='error' ) { %>
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <%= message.message %>
+                                                    </div>
+                                                    <% } else if (message.type==='success' ) { %>
+                                                        <div class="alert alert-success" role="alert">
+                                                            <%= message.message %>
+                                                        </div>
+                                                        <% } %>
+                                                            <% }) %>
+                                        </section>
+                                    <% } %>
+                                            <form action="/registerAdmin" method="post">
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Nombre de Usuario</label>
+                                                    <input type="text" class="form-control" id="username"
+                                                        aria-describedby="" maxlength="255" required name="username">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="password" class="form-label">Contraseña</label>
+                                                    <input type="password" class="form-control" id="password"
+                                                        name="password" maxlength="255" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="password2" class="form-label">Confirmar
+                                                        Contraseña</label>
+                                                    <input type="password" class="form-control" id="password2"
+                                                        name="password2" maxlength="255" required>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                                            </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Load Footer -->
+        <%- include('partials/footer') %>

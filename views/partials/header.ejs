@@ -29,7 +29,11 @@
 
     <!-- Custom CSS and JS -->
     <link rel="stylesheet" href="/css/index.css">
-    <script src="/js/carrousel.js" defer></script>
+    <% if(meta.scripts) { %>
+        <% meta.scripts.forEach(script => { %>
+            <script src="<%= script.src %>" defer></script>
+        <% }) %>
+    <% } %>
     </head>
 
 <body>

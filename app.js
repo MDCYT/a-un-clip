@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
 const flash = require("connect-flash");
+var createError = require('http-errors');
 
-if(process.env.NODE_ENV !== 'production') require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -50,17 +51,52 @@ app.use(passport.session());
 
 app.use(flash());
 //Variables Globales
-app.use((req, res, next) => {
-    app.locals.success = req.flash("success");
-    app.locals.error = req.flash("error");
-    app.locals.user = req.user
+app.use(function (req, res, next) {
+    var msgs = req.session.messages || [];
+    res.locals.messages = msgs;
+    res.locals.hasMessages = !!msgs.length;
+    req.session.messages = [];
+
+    console.log(msgs);
     next();
-  });
+});
+
+//Delete x-powered-by header
+app.disable('x-powered-by');
+//Add custom header
+app.use((req, res, next) => {
+    res.setHeader('X-Powered-By', 'MDCDEV');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'same-origin');
+    res.setHeader('X-Discord-Server', 'https://discord.gg/Dae');
+
+    next();
+});
 
 
 // Routes
+app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/index'));
+app.use('/intranet', require('./routes/intranet'));
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    next(createError(404));
+  });
+  
+  // error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    });
+});
