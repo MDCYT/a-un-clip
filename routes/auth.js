@@ -54,7 +54,7 @@ router.get('/registerAdmin', (req, res) => {
     }
 });
 
-router.post('/registerAdmin', (req, res) => {
+router.post('/registerAdmin', (req, res, next) => {
 
     const username = req.body.username.toLowerCase();
     // Check if username already exists
