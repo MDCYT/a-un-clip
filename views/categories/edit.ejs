@@ -1,0 +1,59 @@
+<!-- Load Header -->
+<%- include('../partials/header') %>
+    <%- include('../partials/navbar') %>
+
+        <main class="container">
+            <!-- Make a formular to edit a new category -->
+            <h1 class="text-center">Editar Categoria</h1>
+            <!-- If error, show a message -->
+            <% if (hasMessages) { %>
+                <section class="messages">
+                    <% messages.forEach(function(message) { %>
+                        <% if (message.type==='error' ) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= message.message %>
+                            </div>
+                            <% } else if (message.type==='success' ) { %>
+                                <div class="alert alert-success" role="alert">
+                                    <%= message.message %>
+                                </div>
+                                <% } %>
+                                    <% }) %>
+                </section>
+                <% } %>
+                    <!-- If there is a category, show the form -->
+                    <% if (typeof info !=='undefined' ) { %>
+                        <form action="/intranet/category/edit/<%= info.id %>" enctype="multipart/form-data"
+                            method="POST">
+                            <!-- Make a text explaining the action -->
+                            <p class="text-center">Complete el formulario para editar la categoria <strong>
+                                    <%= info.name %>
+                                </strong>.</p>
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<%= info.name %>"
+                                    required>
+                            </div>
+                            <!-- Description -->
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"
+                                    required><%= info.description %></textarea>
+                            </div>
+                            <!-- Image -->
+                            <div class="mb-3">
+                                
+                                <label for="image" class="form-label">Imagen</label>
+                                <input class="form-control" type="file" id="image" name="image">
+                                <image src="<%= info.image %>" class="img-fluid" alt="Imagen de la
+                                    categoria" width="200px">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Editar</button>
+                            </div>
+                        </form>
+                        <% } %>
+        </main>
+
+        <%- include('../partials/footer') %>

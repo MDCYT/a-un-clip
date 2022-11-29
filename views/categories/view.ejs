@@ -1,0 +1,78 @@
+<!-- Load Header -->
+<%- include('../partials/header') %>
+    <%- include('../partials/navbar') %>
+
+    <main class="container" >
+        <!-- View the category info and products -->
+        <h1 class="text-center">Ver Categoria</h1>
+        <!-- If error, show a message -->
+        
+        <% if (hasMessages) { %>
+            <section class="messages">
+              <% messages.forEach(function(message) { %>
+                <% if (message.type==='error' ) { %>
+                  <div class="alert alert-danger" role="alert">
+                    <%= message.message %>
+                  </div>
+                  <% } else if (message.type==='success' ) { %>
+                    <div class="alert alert-success" role="alert">
+                      <%= message.message %>
+                    </div>
+                    <% } %>
+                      <% }) %>
+            </section>
+            <% } %>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h2 class="text-center">Información</h2>
+                <p><strong>Nombre:</strong> <%= info.name %></p>
+                <p><strong>Descripción:</strong> <%= info.description %></p>
+                <!-- Image -->
+                <div class="text-center">
+                    <img src="<%= info.image %>" alt="Imagen de la categoria <%= info.name %>" class="img-fluid" width="300px">
+                </div>  
+                <!-- Edit button and delete all products button -->
+                <div class="text-center">
+                    <a href="/intranet/category/edit/<%= info.id %>" class="btn btn-primary">Editar</a>
+                    <a href="/intranet/category/deleteall/<%= info.id %>" class="btn btn-danger">Eliminar todos los productos</a>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="text-center">Productos</h2>
+                <!-- Boton para agregar un producto -->
+                <div class="text-center">
+                    <a href="/intranet/product/new/<%= info.id %>" class="btn btn-primary">Agregar Producto</a>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Imagen</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(function(product) { %>
+                            <tr>
+                                <td><a href="/intranet/product/view/<%= product.id %>"><%= product.name %></a></td>
+                                <td><%= product.price %></td>
+                                <td><%= product.stock %></td>
+                                <td><img src="<%= product.image %>" alt="Imagen del producto <%= product.name %>" class="img-fluid" width="100px"></td>
+                                <td>
+                                    <a href="/intranet/product/edit/<%= product.id %>" class="btn btn-warning">Editar</a>
+                                    <a href="/intranet/product/delete/<%= product.id %>" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </main>
+
+    <!-- Load Footer -->
+    <%- include('../partials/footer') %>

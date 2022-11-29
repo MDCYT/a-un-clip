@@ -1,6 +1,45 @@
-<h1>Bienvenido a la intranet</h1>
-<% if (user && user.username) { %>
-    <h2>Usuario <%= user.username %></h2>
-<% } %>
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
 
-<a href="/logout">Cerrar sesión</a>
+<main class="container">
+    <h1 class="text-center">A Un Clip Intranet</h1>
+    <!-- Make a welcome message with username -->
+    <h2 class="text-center">Bienvenido <%= user.username %></h2>
+
+    <!-- Butrons for add a new category and category list -->
+    <div class="d-flex justify-content-center">
+        <a href="/intranet/category/new" class="btn btn-primary mx-2">Agregar Categoria</a>
+    </div>
+    <!-- Show a table with categories of products -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center">Categorías</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% categories.forEach(function(category) { %>
+                    <tr>
+                        <td><%= category.name %></td>
+                        <td><%= category.description %></td>
+                        <td><img src="<%= category.image %>" class="img-fluid" alt="Imagen de la categoria" width="100px"></td>
+                        <td>
+                            <a href="/intranet/category/view/<%= category.id %>" class="btn btn-primary">Ver</a>
+                            <a href="/intranet/category/edit/<%= category.id %>/" class="btn btn-warning">Editar</a>
+                            <a href="/intranet/category/delete/<%= category.id %>/" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -30,10 +30,11 @@ global.__basedir = __dirname;
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // ejs template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+//Upload files with multer
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -56,8 +57,6 @@ app.use(function (req, res, next) {
     res.locals.messages = msgs;
     res.locals.hasMessages = !!msgs.length;
     req.session.messages = [];
-
-    console.log(msgs);
     next();
 });
 
@@ -80,6 +79,8 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/index'));
 app.use('/intranet', require('./routes/intranet'));
+app.use('/intranet/category', require('./routes/categories'));
+app.use('/intranet/product', require('./routes/products'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
