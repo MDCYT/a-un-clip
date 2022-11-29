@@ -1,0 +1,44 @@
+<!-- Load Header -->
+<%- include('../partials/header') %>
+  <%- include('../partials/navbar') %>
+
+    <main class="container">
+
+    <h1 class="text-center">Eliminar Producto</h1>
+      <!-- If error, show a message -->
+      <% if (hasMessages) { %>
+        <section class="messages">
+          <% messages.forEach(function(message) { %>
+            <% if (message.type==='error' ) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= message.message %>
+              </div>
+              <% } else if (message.type==='success' ) { %>
+                <div class="alert alert-success" role="alert">
+                  <%= message.message %>
+                </div>
+                <% } %>
+                  <% }) %>
+        </section>
+        <% } else %>
+          <form action="/intranet/product/delete/<%= info.id %>" enctype="multipart/form-data" method="POST">
+            <!-- Make a text explaining the action -->
+            <p class="text-center">¿Está seguro que desea eliminar el producto <strong>
+                <%= info.name %>
+              </strong>?</p>
+            <p class="text-center"><strong>Esta acción no se puede deshacer.</strong></p>
+            <!-- Confirmation checkbox -->
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="confirmation" name="confirmation" required>
+              <label class="form-check-label" for="confirmation">Confirmo que soy el administrador de la cuenta y que
+                deseo eliminar el producto <strong>
+                  <%= info.name %>
+                </strong>.</label>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Eliminar</button>
+            </div>
+          </form>
+    </main>
+
+    <%- include('../partials/footer') %>

@@ -31,6 +31,31 @@ const newProductMeta = {
     }
 }
 
+const deleteProductMeta = {
+    meta: {
+        title: 'Eliminar Producto',
+        description: 'Elimina un producto de la tienda',
+        scripts: scripts
+    }
+}
+
+const editProductMeta = {
+    meta: {
+        title: 'Editar Producto',
+        description: 'Edita un producto de la tienda',
+        scripts: scripts
+    }
+}
+
+const viewProductMeta = {
+    meta: {
+        title: 'Productos',
+        description: 'Lista de productos de la tienda',
+        scripts: scripts
+    }
+}
+
+
 router.get('/new', (req, res) => {
     if (req.isAuthenticated()) {
         db.query('SELECT * FROM categories', (err, results) => {
@@ -115,6 +140,126 @@ router.get('/new/:id', upload.single('image'), (req, res) => {
     }
 });
 
+router.get('/delete/:id', (req, res) => {
+    if (req.isAuthenticated()) {
+        const { id } = req.params;
+        db.query('SELECT * FROM products WHERE id = ?', [id], (err, results) => {
+            if (err) throw err;
+            if (results.length > 0) {
+                res.render('products/delete', {
+                    ...deleteProductMeta,
+                    info: results[0],
+                });
+            } else {
+                res.redirect('/intranet/');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
 
+router.post('/delete/:id', (req, res) => {
+    if (req.isAuthenticated()) {
+        const { id } = req.params;
+        db.query('DELETE FROM products WHERE id = ?', [id], (err, results) => {
+            if (err) throw err;
+            res.redirect('/intranet/');
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
+
+router.get('/edit/:id', (req, res) => {
+    if (req.isAuthenticated()) {
+        const { id } = req.params;
+        db.query('SELECT * FROM products WHERE id = ?', [id], (err, results) => {
+            if (err) throw err;
+            if (results.length > 0) {
+                db.query('SELECT * FROM categories', (err, categories) => {
+                    if (err) throw err;
+                    res.render('products/edit', {
+                        ...editProductMeta,
+                        info: results[0],
+                        categories: categories,
+                    });
+                });
+            } else {
+                res.redirect('/intranet/');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
+
+router.post('/edit/:id', upload.single('image'), (req, res) => {
+    if (req.isAuthenticated()) {
+        const { id } = req.params;
+        const { name, description, price, category, stock } = req.body;
+        const image = req.file.filename;
+        
+        // Check if all fields are filled
+        if (!name || !description || !price || !category) {
+            // Check if image if have a new image, if have a new image, check if is an image
+            if (image) {
+                db.query('UPDATE products SET name = ?, description = ?, price = ?, category = ?, image = ?, stock = ? WHERE id = ?', [name, description, price, category, req.protocol + '://' + req.get('host') + '/uploads/' + image, stock, id], (err, results) => {
+                    if (err) throw err;
+                    res.redirect('/intranet/');
+                });
+            } else {
+                db.query('UPDATE products SET name = ?, description = ?, price = ?, category = ?, stock = ? WHERE id = ?', [name, description, price, category, stock, id], (err, results) => {
+                    if (err) throw err;
+                    res.redirect('/intranet/');
+                });
+            }
+        } else {
+            // Check if image is an image
+            if (path.extname(image) == '.jpg' || path.extname(image) == '.png' || path.extname(image) == '.jpeg') {
+                db.query('UPDATE products SET name = ?, description = ?, price = ?, category = ?, image = ?, stock = ? WHERE id = ?', [name, description, price, category, req.protocol + '://' + req.get('host') + '/uploads/' + image, stock, id], (err, results) => {
+                    if (err) throw err;
+                    res.redirect('/intranet/');
+                });
+            } else {
+                db.query('SELECT * FROM categories', (err, results) => {
+                    if (err) throw err;
+                    res.render('products/edit', {
+                        ...editProductMeta,
+                        categories: results,
+                        hasMessages: true,
+                        messages: [
+                            {
+                                type: 'error',
+                                text: 'Por favor, sube una imagen'
+                            }
+                        ]
+                    });
+                });
+            }
+        }
+    } else {
+        res.redirect('/login');
+    }
+});
+
+router.get('/view/:id', (req, res) => {
+    if (req.isAuthenticated()) {
+        const { id } = req.params;
+        db.query('SELECT * FROM products WHERE id = ?', [id], (err, results) => {
+            if (err) throw err;
+            if (results.length > 0) {
+                res.render('products/view', {
+                    ...viewProductMeta,
+                    info: results[0],
+                });
+            } else {
+                res.redirect('/intranet/');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
+});
 
 module.exports = router;

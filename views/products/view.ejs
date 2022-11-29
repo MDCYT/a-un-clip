@@ -1,0 +1,52 @@
+<!-- Load Header -->
+<%- include('../partials/header') %>
+    <%- include('../partials/navbar') %>
+
+        <main class="container">
+            <!-- If error, show a message -->
+            <% if (hasMessages) { %>
+                <section class="messages">
+                    <% messages.forEach(function(message) { %>
+                        <% if (message.type==='error' ) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= message.message %>
+                            </div>
+                            <% } else if (message.type==='success' ) { %>
+                                <div class="alert alert-success" role="alert">
+                                    <%= message.message %>
+                                </div>
+                                <% } %>
+                                    <% }) %>
+                </section>
+                <% } else {%>
+                    <!-- Make a product view -->
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <img src="<%= info.image %>" class="img-fluid" alt="<%= info.name %>">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <h1>
+                                <%= info.name %>
+                            </h1>
+                            <p>
+                                <%= info.description %>
+                            </p>
+                            <p>
+                                <strong>Precio: </strong>
+                                <%= info.price %>
+                            </p>
+
+                            <!-- Button for add to cart or buy -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button class="btn btn-primary me-md-2" type="button">Agregar al carrito</button>
+                                <button class="btn btn-primary" type="button">Comprar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
+
+        </main>
+
+        <!-- Load Footer -->
+        <%- include('../partials/footer') %>

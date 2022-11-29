@@ -2,8 +2,7 @@
 <%- include('../partials/header') %>
     <%- include('../partials/navbar') %>
 
-    <main class="container" 
-        <!-- Make a confirmation form to delete a category -->
+    <main class="container">
         <h1 class="text-center">Eliminar Categoria</h1>
         <!-- If error, show a message -->
         <% if (hasMessages) { %>
@@ -34,7 +33,6 @@
                 <button type="submit" class="btn btn-primary">Eliminar</button>
             </div>
         </form>
-        <% } %>
     </main>
 
     <%- include('../partials/footer') %>
