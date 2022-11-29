@@ -77,7 +77,7 @@ router.post('/registerAdmin', (req, res, next) => {
                     bcrypt.hash(req.body.password, salt, (err, hash) => {
                         if (err) { return next(err); }
                         // Store user
-                        db.query('INSERT INTO users SET ?', { id: uuidv4(), username: username, password: hash, role: 'admin' }, (err, results) => {
+                        db.query('INSERT INTO users SET ?', { id: uuidv4(), username: username, password: hash, level: 0 }, (err, results) => {
                             if (err) { return next(err); }
                             req.session.messages = [{ type: 'success', message: 'Usuario registrado correctamente' }];
                             res.redirect('/login');
